@@ -550,3 +550,5 @@ This repository is licensed under the [MIT License](https://github.com/astral-sh
     <img src="https://raw.githubusercontent.com/astral-sh/ruff/main/assets/svg/Astral.svg" alt="Made by Astral">
   </a>
 </div>
+
+This repo uses Tenki!
