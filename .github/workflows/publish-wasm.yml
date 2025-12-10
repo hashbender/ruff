@@ -20,7 +20,7 @@ env:
 
 jobs:
   ruff_wasm:
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     permissions:
       contents: read
       id-token: write

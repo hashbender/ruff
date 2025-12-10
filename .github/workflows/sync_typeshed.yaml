@@ -55,7 +55,7 @@ jobs:
   # Push the changes to a new branch on the upstream repository.
   sync:
     name: Sync typeshed
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 20
     # Don't run the cron job on forks:
     if: ${{ github.repository == 'astral-sh/ruff' || github.event_name != 'schedule' }}
@@ -113,7 +113,7 @@ jobs:
   # and sync all docstrings available on Windows that are not available on Linux.
   # Commit the changes and push them to the same branch.
   docstrings-windows:
-    runs-on: windows-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 20
     needs: [sync]
 
@@ -151,7 +151,7 @@ jobs:
   # and sync all docstrings available on macOS that are not available on Linux or Windows.
   # Push the changes to the same branch and create a PR against the `main` branch using that branch.
   docstrings-macos-and-pr:
-    runs-on: macos-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 20
     needs: [sync, docstrings-windows]
 
@@ -243,7 +243,7 @@ jobs:
 
   create-issue-on-failure:
     name: Create an issue if the typeshed sync failed
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: [sync, docstrings-windows, docstrings-macos-and-pr]
     if: ${{ github.repository == 'astral-sh/ruff' && always() && github.event_name == 'schedule' && (needs.sync.result == 'failure' || needs.docstrings-windows.result == 'failure' || needs.docstrings-macos-and-pr.result == 'failure') }}
     permissions:
