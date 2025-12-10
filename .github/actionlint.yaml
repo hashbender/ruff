@@ -11,3 +11,4 @@ self-hosted-runner:
     - github-windows-2025-x86_64-8
     - github-windows-2025-x86_64-16
     - codspeed-macro
+    - tenki-standard-autoscale
