@@ -63,7 +63,7 @@ install-updater = false
 install-path = ["$XDG_BIN_HOME/", "$XDG_DATA_HOME/../bin", "~/.local/bin"]
 
 [dist.github-custom-runners]
-global = "depot-ubuntu-latest-4"
+global = "depot-tenki-standard-autoscale-4"
 
 [dist.github-action-commits]
 "actions/checkout" = "1af3b93b6815bc44a9784bd300feb67ff0d1eeb3" # v6.0.0

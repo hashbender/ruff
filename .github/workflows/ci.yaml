@@ -30,7 +30,7 @@ env:
 jobs:
   determine_changes:
     name: "Determine changes"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     outputs:
       # Flag that is raised when any code that affects parser is changed
       parser: ${{ steps.check_parser.outputs.changed }}
@@ -212,7 +212,7 @@ jobs:
 
   cargo-fmt:
     name: "cargo fmt"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -224,7 +224,7 @@ jobs:
 
   cargo-clippy:
     name: "cargo clippy"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main' }}
     timeout-minutes: 20
@@ -246,7 +246,7 @@ jobs:
 
   cargo-test-linux:
     name: "cargo test (linux)"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'tenki-standard-autoscale' }}
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main') }}
     timeout-minutes: 20
@@ -372,7 +372,7 @@ jobs:
 
   cargo-test-wasm:
     name: "cargo test (wasm)"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main') }}
     timeout-minutes: 10
@@ -404,7 +404,7 @@ jobs:
 
   cargo-build-msrv:
     name: "cargo build (msrv)"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-latest-8' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-tenki-standard-autoscale-8' || 'tenki-standard-autoscale' }}
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main') }}
     timeout-minutes: 20
@@ -433,7 +433,7 @@ jobs:
 
   cargo-fuzz-build:
     name: "cargo fuzz build"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ github.ref == 'refs/heads/main' || needs.determine_changes.outputs.fuzz == 'true' || needs.determine_changes.outputs.code == 'true' }}
     timeout-minutes: 10
@@ -458,7 +458,7 @@ jobs:
 
   fuzz-parser:
     name: "fuzz parser"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.parser == 'true' || needs.determine_changes.outputs.py-fuzzer == 'true') }}
     timeout-minutes: 20
@@ -492,7 +492,7 @@ jobs:
 
   scripts:
     name: "test scripts"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main') }}
     timeout-minutes: 5
@@ -526,7 +526,7 @@ jobs:
 
   ecosystem:
     name: "ecosystem"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-latest-8' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-tenki-standard-autoscale-8' || 'tenki-standard-autoscale' }}
     needs: determine_changes
     # Only runs on pull requests, since that is the only we way we can find the base version for comparison.
     # Ecosystem check needs linter and/or formatter changes.
@@ -633,7 +633,7 @@ jobs:
 
   fuzz-ty:
     name: "Fuzz for new ty panics"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'tenki-standard-autoscale' }}
     needs:
       - determine_changes
     # Only runs on pull requests, since that is the only we way we can find the base version for comparison.
@@ -683,7 +683,7 @@ jobs:
 
   cargo-shear:
     name: "cargo shear"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main' }}
     steps:
@@ -696,7 +696,7 @@ jobs:
 
   ty-completion-evaluation:
     name: "ty completion evaluation"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'tenki-standard-autoscale' }}
     needs: determine_changes
     if: ${{ needs.determine_changes.outputs.ty == 'true' || github.ref == 'refs/heads/main' }}
     steps:
@@ -718,7 +718,7 @@ jobs:
 
   python-package:
     name: "python package"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 20
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') }}
     steps:
@@ -748,7 +748,7 @@ jobs:
 
   pre-commit:
     name: "pre-commit"
-    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'ubuntu-latest' }}
+    runs-on: ${{ github.repository == 'astral-sh/ruff' && 'depot-ubuntu-22.04-16' || 'tenki-standard-autoscale' }}
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -779,7 +779,7 @@ jobs:
 
   docs:
     name: "mkdocs"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -808,7 +808,7 @@ jobs:
 
   check-formatter-instability-and-black-similarity:
     name: "formatter instabilities and black similarity"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.formatter == 'true' || github.ref == 'refs/heads/main') }}
     timeout-minutes: 10
@@ -830,7 +830,7 @@ jobs:
 
   check-ruff-lsp:
     name: "test ruff-lsp"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 5
     needs: determine_changes
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-test') && (needs.determine_changes.outputs.code == 'true' || github.ref == 'refs/heads/main') }}
@@ -884,7 +884,7 @@ jobs:
 
   check-playground:
     name: "check playground"
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 5
     needs:
       - determine_changes

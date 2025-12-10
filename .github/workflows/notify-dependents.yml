@@ -14,7 +14,7 @@ on:
 jobs:
   update-dependents:
     name: Notify dependents
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     steps:
       - name: "Update pre-commit mirror"
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0

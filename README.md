@@ -200,7 +200,7 @@ name: Ruff
 on: [ push, pull_request ]
 jobs:
   ruff:
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/ruff-action@v3

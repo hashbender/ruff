@@ -26,7 +26,7 @@ env:
 jobs:
   fuzz:
     name: Fuzz
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     timeout-minutes: 20
     # Don't run the cron job on forks:
     if: ${{ github.repository == 'astral-sh/ruff' || github.event_name != 'schedule' }}
@@ -60,7 +60,7 @@ jobs:
 
   create-issue-on-failure:
     name: Create an issue if the daily fuzz surfaced any bugs
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     needs: fuzz
     if: ${{ github.repository == 'astral-sh/ruff' && always() && github.event_name == 'schedule' && needs.fuzz.result == 'failure' }}
     permissions:

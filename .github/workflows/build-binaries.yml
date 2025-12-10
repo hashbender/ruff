@@ -32,12 +32,12 @@ env:
   CARGO_INCREMENTAL: 0
   CARGO_NET_RETRY: 10
   CARGO_TERM_COLOR: always
-  RUSTUP_MAX_RETRIES: 10
+  RUSTUP_MAX_RETRIES: 10`
 
 jobs:
   sdist:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-build') }}
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -212,7 +212,7 @@ jobs:
 
   linux:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-build') }}
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     strategy:
       matrix:
         target:
@@ -269,7 +269,7 @@ jobs:
 
   linux-cross:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-build') }}
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     strategy:
       matrix:
         platform:
@@ -354,7 +354,7 @@ jobs:
 
   musllinux:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-build') }}
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     strategy:
       matrix:
         target:
@@ -416,7 +416,7 @@ jobs:
 
   musllinux-cross:
     if: ${{ !contains(github.event.pull_request.labels.*.name, 'no-build') }}
-    runs-on: ubuntu-latest
+    runs-on: tenki-standard-autoscale
     strategy:
       matrix:
         platform:
